@@ -31,7 +31,6 @@ if (isset($_POST['submit'])) {
 
         $last_id++;
 
-        echo $last_id;
 
         //controllo che l'username non sia già presente nel database
         $sql = "SELECT username FROM users WHERE username = '$username'";
@@ -42,12 +41,17 @@ if (isset($_POST['submit'])) {
             //se l'username è già presente nel database
             if (mysqli_num_rows($result) > 0) {
                 //reindirizzo alla pagina di registrazione per tutor
-                header('Location: ./tutor_registration.php?error=1');
-            }
+                header('Location: ./registration.php?error_username');
+                return;
+            } 
+        } else {
+            echo 'Rilevato errore del tipo' . mysqli_error($con);
+
         }
 
         //faccio l'hash della password
         $password = password_hash($password, PASSWORD_DEFAULT);
+
 
         //inserisco i dati nella tabella users
         $sql = "INSERT INTO users VALUES ('$last_id', '$username', '$password', 'tut', '$name', '$level')";
@@ -61,7 +65,9 @@ if (isset($_POST['submit'])) {
         }
         //altrimenti, mostra un messaggio di errore
         else {
-            echo 'Rilevato errore del tipo' . mysqli_error($con);
+            //ritorna alla pagina di registrazione con un messaggio di errore
+            header('Location: ./registration.php?error_generic');
+
         }
     } else {
         echo 'errore';

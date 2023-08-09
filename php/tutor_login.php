@@ -1,4 +1,5 @@
 <?php
+    //se tra i parametri della richiesta GET è presente il parametro success, mostra un messaggio di successo
 
 ?>
 
@@ -7,8 +8,21 @@
 <head>
     <title>Login tutor</title>
     <link rel="stylesheet" type="text/css" href="../css/in_pages.css">
+
+    <script>
+        function succ() {
+            //recupero url corrente
+            var url = window.location.href;
+
+            //se l'url contiene il parametro success, mostra un messaggio di successo
+            if (url.includes('success') !== -1) {
+                alert('Registrazione avvenuta con successo!');
+            }
+
+        }
+    </script>
 </head>
-<body>
+<body onload='succ()'>
     <div class="loginbox-teacher">
         <h1>Login Docenti</h1>
         <div id='in'>
