@@ -61,7 +61,7 @@
 
                 //costruisco il form di registrazione per studenti
                 //esso contiene i campi username, password, nome completo, livello frequentato
-                //tutti i campi sono obbligatori, e livello frequentato è un menu a tendina con le opzioni "medie", "superiori", "università" e "lavoratore"
+                //tutti i campi sono obbligatori, e livello frequentato è un menu a tendina con le opzioni "medie", "superiori", "università" e "professionale"
                 //c'è anche un campo di verifica per la password
                 //uso una regex per il campo password, che deve contenere almeno 8 caratteri, di cui almeno una lettera maiuscola, una minuscola e un numero
                 document.querySelector('#in').innerHTML += '<form action="student_registration.php" method="post"><p>Username</p><input type="text" name="username" placeholder="Enter Username" required><p>Password</p><input type="password" name="password" placeholder="Enter Password" required><p>Verifica password</p><input type="password" name="password2" placeholder="Enter Password" required><p>Nome completo</p><input type="text" name="name" placeholder="Enter Full Name" required><p>Livello frequentato</p><select name="level"><option value="medie">Medie</option><option value="superiori">Superiori</option><option value="università">Università</option><option value="lavoro">lavoro</option></select><input type="submit" name="submit" value="Registrati"></form>';
@@ -136,7 +136,7 @@
                 //il pulsante 'registrati' è sostituito con "registrati come tutor" con id 'reg-tutor'
                 //c'è anche un campo di verifica per la password
                 //uso una regex per il campo password, che deve contenere almeno 8 caratteri, di cui almeno una lettera e un numero
-                form = '<form action="tutor_registration.php" method="post"><p>Username</p><input type="text" name="username" placeholder="Enter Username" required><p>Password</p><input type="password" name="password" placeholder="Enter Password" required><p>Verifica password</p><input type="password" name="password2" placeholder="Enter Password" required><p>Nome completo</p><input type="text" name="name" placeholder="Enter Full Name" required><p>Livello insegnato</p><select name="level"><option value="medie">Medie</option><option value="superiori">Superiori</option><option value="università">Università</option><option value="lavoro">lavoro</option></select><input type="submit" name="submit" value="Registrati"></form>';
+                form = '<form action="tutor_registration.php" method="post"><p>Username</p><input type="text" name="username" placeholder="Enter Username" required><p>Password</p><input type="password" name="password" placeholder="Enter Password" required><p>Verifica password</p><input type="password" name="password2" placeholder="Enter Password" required><p>Nome completo</p><input type="text" name="name" placeholder="Enter Full Name" required><p>Livello insegnato</p><select name="level"><option value="medie">Medie</option><option value="superiori">Superiori</option><option value="università">Università</option><option value="Professionale">Professionale</option></select><input type="submit" name="submit" value="Registrati"></form>';
                 document.querySelector('#in').innerHTML += form;
 
 

@@ -1,5 +1,42 @@
 <?php
-    //se tra i parametri della richiesta GET è presente il parametro success, mostra un messaggio di successo
+
+//includo il file di connessione al database
+include('./db_info.php');
+
+//inizio la sessione
+session_start();
+
+//se è stato inviato il form
+if(isset($_POST['submit'])){
+
+    //assegno a delle variabili il contenuto del form
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    //calcolo l'hash non troppo lungo da calcolare della password
+    $password = hash('md5', $password);
+
+    //seleziono dal database tutti gli utenti con username e password uguali a quelli inseriti nel form
+    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password' AND role = 'tut'";
+    $result = mysqli_query($conn, $query);
+
+    //se l'utente esiste
+    if(mysqli_num_rows($result) > 0){
+
+        //salvo nella sessione il suo id
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['id'] = $row['id'];
+
+        //lo reindirizzo alla pagina riservata
+        header('Location: ../php/tutor_page.php');
+        exit;
+    }else{
+        //altrimenti lo reindirizzo al login con un messaggio di errore
+        header('Location: ../php/tutor_login.php?error=1');
+        exit;
+    }
+}
+
 
 ?>
 
@@ -15,7 +52,7 @@
             var url = window.location.href;
 
             //se l'url contiene il parametro success, mostra un messaggio di successo
-            if (url.includes('success') !== -1) {
+            if (url.includes('success')) {
                 alert('Registrazione avvenuta con successo!');
             }
 
