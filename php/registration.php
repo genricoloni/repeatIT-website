@@ -17,7 +17,7 @@
         function error(){
             let url = window.location.href;
             console.log(url);
-            if(url.includes('error_username')){
+            if(url.includes('error_duplicate_user')){
                 alert('Errore: username già usato.');
             }
             if(url.includes('error_generic')){
@@ -64,11 +64,11 @@
                 //tutti i campi sono obbligatori, e livello frequentato è un menu a tendina con le opzioni "medie", "superiori", "università" e "professionale"
                 //c'è anche un campo di verifica per la password
                 //uso una regex per il campo password, che deve contenere almeno 8 caratteri, di cui almeno una lettera maiuscola, una minuscola e un numero
-                document.querySelector('#in').innerHTML += '<form action="student_registration.php" method="post"><p>Username</p><input type="text" name="username" placeholder="Enter Username" required><p>Password</p><input type="password" name="password" placeholder="Enter Password" required><p>Verifica password</p><input type="password" name="password2" placeholder="Enter Password" required><p>Nome completo</p><input type="text" name="name" placeholder="Enter Full Name" required><p>Livello frequentato</p><select name="level"><option value="medie">Medie</option><option value="superiori">Superiori</option><option value="università">Università</option><option value="lavoro">lavoro</option></select><input type="submit" name="submit" value="Registrati"></form>';
+                document.querySelector('#in').innerHTML += '<form action="student_registration.php" method="post"><p>Username</p><input type="text" name="username" placeholder="Enter Username" required><p>Password</p><input type="password" name="password" placeholder="Enter Password" required><p>Verifica password</p><input type="password" name="password2" placeholder="Enter Password" required><p>Nome completo</p><input type="text" name="name" placeholder="Enter Full Name" required><p>Livello frequentato</p><select name="level"><option value="medie">Medie</option><option value="superiori">Superiori</option><option value="università">Università</option><option value="Professionale">Professionale</option></select><input type="submit" name="submit" value="Registrati"></form>';
 
 
                 //aggiungo event per verificare che le due password inserite siano uguali
-                document.querySelector('#in').addEventListener('click', function(e){
+                document.querySelector('#in').addEventListener('input', function(e){
                     let p1 = document.querySelector('input[name="password"]').value;
                     let p2 = document.querySelector('input[name="password2"]').value;
                     if(p1 != p2){
@@ -142,7 +142,7 @@
 
 
                 //aggiungo event per verificare che le due password inserite siano uguali
-                document.querySelector('#in').addEventListener('click', function(e){
+                document.querySelector('#in').addEventListener('input', function(e){
                     let p1 = document.querySelector('input[name="password"]').value;
                     let p2 = document.querySelector('input[name="password2"]').value;
                     if(p1 != p2){

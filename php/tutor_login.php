@@ -16,27 +16,32 @@ if(isset($_POST['submit'])){
     //calcolo l'hash non troppo lungo da calcolare della password
     $password = hash('md5', $password);
 
-    //seleziono dal database tutti gli utenti con username e password uguali a quelli inseriti nel form
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password' AND role = 'tut'";
-    $result = mysqli_query($conn, $query);
+    //controllo prima che l'username esista
+    $query = "SELECT * FROM tutor WHERE username = '$username'";
+    $result = mysqli_query($con, $query);
+    $num_rows = mysqli_num_rows($result);
 
-    //se l'utente esiste
-    if(mysqli_num_rows($result) > 0){
-
-        //salvo nella sessione il suo id
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['id'] = $row['id'];
-
-        //lo reindirizzo alla pagina riservata
-        header('Location: ../php/tutor_page.php');
-        exit;
-    }else{
-        //altrimenti lo reindirizzo al login con un messaggio di errore
-        header('Location: ../php/tutor_login.php?error=1');
-        exit;
+    //se l'username non esiste, reindirizzo alla pagina di login con un errore
+    if($num_rows == 0){
+        header('Location: ./tutor_login.php?error=no_user');
     }
-}
 
+    //se l'username esiste, controllo che la password sia corretta
+    $query = "SELECT * FROM tutor WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($con, $query);
+    $num_rows = mysqli_num_rows($result);
+
+    //se la password è sbagliata, reindirizzo alla pagina di login con un errore
+    if($num_rows == 0){
+        header('Location: ./tutor_login.php?error=wrong_password');
+    } else {
+        //se la password è corretta, salvo l'username nella sessione e reindirizzo alla pagina principale
+        $_SESSION['username'] = $username;
+        header('Location: ./dashboard.php');
+    }
+
+
+}
 
 ?>
 
@@ -54,14 +59,24 @@ if(isset($_POST['submit'])){
             //se l'url contiene il parametro success, mostra un messaggio di successo
             if (url.includes('success')) {
                 alert('Registrazione avvenuta con successo!');
+                return
             }
 
+            if (url.includes('no_user')) {
+                alert('Errore: username non esistente!');
+                return
+            }
+
+            if (url.includes('wrong_password')) {
+                alert('Errore: password errata!');
+                return
+            }
         }
     </script>
 </head>
 <body onload='succ()'>
     <div class="loginbox-teacher">
-        <h1>Login Docenti</h1>
+        <h1>Login Tutor</h1>
         <div id='in'>
         <form action="tutor_login.php" method="post">
             <p>Username</p>
@@ -70,7 +85,7 @@ if(isset($_POST['submit'])){
             <input type="password" name="password" placeholder="Enter Password" required>
             <input type="submit" name="submit" value="Login">
             <div id='lnk'>
-                <a href="teacher_registration.php"><br>Non hai ancora un account?</a>
+                <a href="./registration.php"><br>Non hai ancora un account?</a>
             </div>
             <div id='back'>
             <a href="../index.php"><br>Torna alla pagina principale!</a>
