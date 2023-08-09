@@ -33,17 +33,35 @@ if (isset($_POST['submit'])) {
 
         echo $last_id;
 
+        //controllo che l'username non sia già presente nel database
+        $sql = "SELECT username FROM users WHERE username = '$username'";
+        $result = mysqli_query($con, $sql);
+
+        //se la query è andata a buon fine
+        if ($result) {
+            //se l'username è già presente nel database
+            if (mysqli_num_rows($result) > 0) {
+                //reindirizzo alla pagina di registrazione per tutor
+                header('Location: ./tutor_registration.php?error=1');
+            }
+        }
+
+        //faccio l'hash della password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
         //inserisco i dati nella tabella users
         $sql = "INSERT INTO users VALUES ('$last_id', '$username', '$password', 'tut', '$name', '$level')";
         $result = mysqli_query($con, $sql);
 
         //se l'inserimento è andato a buon fine, reindirizzo alla pagina di login
         if ($result) {
-            header('Location: tutor_login.php');
+            //nella pagina di login, mostro un messaggio di successo
+            header('Location: ./tutor_login.php?success=1');
+
         }
         //altrimenti, mostra un messaggio di errore
         else {
-            echo 'err';
+            echo 'Rilevato errore del tipo' . mysqli_error($con);
         }
     } else {
         echo 'errore';

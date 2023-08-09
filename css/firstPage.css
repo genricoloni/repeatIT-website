@@ -1,6 +1,6 @@
 body {
     display: flex;
-    background-image: url("../tutorsite/assets/wall_darker.svg");
+    background-image: url("./assets/wall_darker.svg");
     font-family: 'Roboto', sans-serif;
 
 }
