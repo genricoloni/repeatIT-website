@@ -40,6 +40,20 @@ if(isset($_POST['submit'])){
     }
 }
 
+//controllo eventuali errori passati come parametri nell'url
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case 'no_user':
+            echo '<script>alert("Errore: username non esistente!")</script>';
+            break;
+        case 'wrong_password':
+            echo '<script>alert("Errore: password errata!")</script>';
+            break;
+        default:
+            break;
+    }
+}
+
 
 ?>
 
