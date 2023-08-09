@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    background-image: url("../tutorsite/assets/wall3.svg");
+    color: white;
+    /* center the content */
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+
+.role-reg {
+    background-color: rgb(144, 50, 173);
+    margin: 20px;
+
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 15px;
+    color: white;
+    box-shadow: black 0px 0px 10px 0px;
+
+}
+
+
+
+#roles {
+    display: flex;
+}
+
+#roles > div {
+    margin: 20px;
+}
+
+.student-reg {
+    background-color: rgb(223, 114, 25);
+
+    margin: 20px;
+    
+    width: 50%;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 15px;
+    color: white;
+    box-shadow: black 0px 0px 10px 0px;
+}
+
+.tutor-reg {
+    background-color: rgb(50, 107, 173);
+
+
+    margin: 20px;
+    
+    width: 50%;
+    padding: 10px;
+    width: 50%;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 15px;
+    color: white;
+    box-shadow: black 0px 0px 10px 0px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../css/firstPage.css">
+        <title>Pagina principale</title>
+
+        <script>
+            function setup(){
+
+
+                document.getElementById("instructions").addEventListener("mouseover", function(){
+                    document.getElementById("testo").style.display = "block";
+                })
+
+                document.getElementById("instructions").addEventListener("mouseout", function(){
+                    document.getElementById("testo").style.display = "none";
+                })
+
+                
+            }
+        </script>
+    </head>
+
+    <body onload="setup()">
+        <div class="container">
+            <div class="header">
+                <h1>Benvenuto in Repeat-IT!</h1>
+            </div>
+            <div class="content">
+                <div id="left" class="in">
+                    <h2>Sei uno studente?</h2>
+                    <a class='l' href="../php/student_login.php">Accedi</a>
+                </div>
+                <div id="right" class="in">
+                    <h2>Sei un tutor?</h2>
+                    <a class='l' href="../php/tutor_login.php">Accedi</a>
+                </div>
+            </div>
+        <div class="bottom">
+            <h3>Non sei ancora registrato?<br></h3>
+            <a class='l' href="./registration.html">Registrati</a>
+        </div>
+        <!-- div a scomparsa con le istruzioni su come utilizzare il sito-->
+        <div id="instructions">
+            <h2>DESCRIZIONE DEL SITO</h2>
+        </div>
+
+            <div id="testo">
+                lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl. Sed euismod, nisl quis ultrices ultricies, nunc nisl ultricies nunc, quis ultricies nisl nisl nec nisl.
+            </div>
+        </div>
+        
+    </body>
+</html>
