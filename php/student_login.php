@@ -63,31 +63,8 @@ if (isset($_GET['error'])) {
     <title>Login studenti</title>
     <link rel="stylesheet" type="text/css" href="../css/in_pages.css">
 
-    <script>
-
-        function check(){
-            //recupero url corrente
-            var url = window.location.href;
-
-            //se l'url contiene il parametro success, mostra un messaggio di successo
-            if (url.includes('success')) {
-                alert('Registrazione avvenuta con successo!');
-                return
-            }
-
-            if (url.includes('no_user')) {
-                alert('Errore: username non esistente!');
-                return
-            }
-
-            if (url.includes('wrong_password')) {
-                alert('Errore: password errata!');
-                return
-            }
-        }
-    </script>
 </head>
-<body onload='check()'>
+<body>
     <div class="loginbox-student">
         <h1>Login Studenti</h1>
         <div id='in'>
