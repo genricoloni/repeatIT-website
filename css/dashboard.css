@@ -89,3 +89,55 @@ body {
 
 
 }
+
+.upper_student {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(223, 114, 25);
+    
+    height:10%;
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 5px;
+
+    
+
+}
+
+.lower_student {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(223, 114, 25);
+
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+
+    /*distanzio il div superiore dal div inferiore*/
+    margin-top: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding-bottom: 10px;
+
+}
+
+.lower_student > div {
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    margin: 15px;
+    /*centro la tabella*/
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+
+    /*il background color è uguale all'altro ma con un layer di trasparenza*/
+    background-color: rgba(0, 0, 0, 0.4);
+
+}

@@ -273,17 +273,27 @@ if ($role == 'student') {
     //da valutare l'aggiunta di un'icona per la gestione del profilo 
     //e una per accedere agli esercizi preferiti
 
-    echo '<div class="upper">
+    echo '<div class="upper_student">
             <div class="name">
                 <h1>Benvenuto, ' . $name . '</h1>
             </div>
             <div class="level">
                 <h1>Livello: ' . $level . '</h1>
-            </div>
+            </div>';
+    //inserisco anche i pulsanti di richiesta tutor e ricerca esercizio
+    //essi sono rappresentati da un'immagine che funge da pulsante, di dimensioni 50x50
+    //le immagini si trovano in /css/assets
+
+    echo '<div class="buttons">
+            <a href="./request.php"><img src="../css/assets/add-user.png" alt="Richiedi tutor" title="Richiedi tutor" width="50" height="50"></a>
+            <a href="./search.php"><img src="../css/assets/search.png" alt="Cerca esercizio" title="Cerca esercizio" width="50" height="50"></a>
+        </div>
         </div>';
 
+
+
     //faccio il div lower con i tutor accettati e i tutor rifiutati
-    echo '<div class="lower">
+    echo '<div class="lower_student">
             <div class="accepted">
                 <h1>Tutor accettati</h1>';
 
@@ -293,12 +303,156 @@ if ($role == 'student') {
 
     $row = mysqli_fetch_array($result);
 
-    $id_studente = $row['id'];
+    $id_studente = $row['student_id'];
+    
+    //fai log sulla console per vedere se l'id dello studente è stato recuperato
+    echo '<script>console.log("id studente: ' . $id_studente . '")</script>';
 
     //recupero i tutor accettati
-    $query = "SELECT * FROM TutorStudente WHERE studente_id = '$id_studente' AND accettato = 1";
+    $query = "SELECT * FROM Insegnamento WHERE student_id = '$id_studente'";
 
     $result = mysqli_query($con, $query);
+
+    //creo la tabella
+    echo '<table id="tutorAccettati">
+            <tr>
+                <th>Nome</th>
+                <th>Livello</th>
+            </tr>';
+
+    //se ci sono tutor accettati, li mostro
+    if (mysqli_num_rows($result) != 0) {
+
+        //per ogni tutor accettato, recupero i dati del tutor
+        while ($row = mysqli_fetch_array($result)) {
+            $id_tutor = $row['tutor_id'];
+
+            $query = "SELECT * FROM tutor WHERE tutor_id = '$id_tutor'";
+            $result2 = mysqli_query($con, $query);
+
+            $row2 = mysqli_fetch_array($result2);
+
+            $name = $row2['NomeCompleto'];
+            $level = $row2['livello'];
+
+            switch ($level) {
+                case 0:
+                    $level = 'Medie';
+                    break;
+                case 1:
+                    $level = 'Superiori';
+                    break;
+                case 2:
+                    $level = 'Università';
+                    break;
+                case 3:
+                    $level = 'Professionale';
+                    break;
+                default:
+                    $level = 'Medie';
+                    break;
+            }
+
+            //aggiungo una riga alla tabella
+            echo '<tr>
+                    <td>' . $name . '</td>
+                    <td>' . $level . '</td>
+                </tr>';
+                      
+
+        }
+
+    } else {
+        //appendi alla tabella un messaggio di nessun tutor accettato, con colspan = 2
+        echo '<tr>
+                <td colspan="2">Nessun tutor accettato</td>
+            </tr>';
+    }
+
+
+    //creo un altro div, sempre dentro lower_student, per i tutor rifiutati o in attesa
+    echo '</table>
+        </div>
+        <div class="refused">
+            <h1>Tutor rifiutati</h1>';
+        
+        
+    //creo la tabella
+    echo '<table id="tutorNon">
+            <tr>
+                <th>Nome</th>
+                <th>Livello</th>
+                <th>Status</th>
+            </tr>';
+
+    //recupero i tutor rifiutati o in attesa
+    $query = "SELECT * FROM RichiestaInsegnamento WHERE student_id = '$id_studente' AND status <> 'Accettato'";
+
+    $result = mysqli_query($con, $query);
+
+    //se ci sono tutor rifiutati o in attesa, li mostro
+    if (mysqli_num_rows($result) != 0) {
+
+        //per ogni tutor rifiutato o in attesa, recupero i dati del tutor
+        while ($row = mysqli_fetch_array($result)) {
+            $id_tutor = $row['tutor_id'];
+
+            $query = "SELECT * FROM tutor WHERE tutor_id = '$id_tutor'";
+            $result2 = mysqli_query($con, $query);
+
+            $row2 = mysqli_fetch_array($result2);
+
+            $name = $row2['NomeCompleto'];
+            $level = $row2['livello'];
+
+            switch ($level) {
+                case 0:
+                    $level = 'Medie';
+                    break;
+                case 1:
+                    $level = 'Superiori';
+                    break;
+                case 2:
+                    $level = 'Università';
+                    break;
+                case 3:
+                    $level = 'Professionale';
+                    break;
+                default:
+                    $level = 'Medie';
+                    break;
+            }
+
+            //aggiungo una riga alla tabella
+            echo '<tr>
+                    <td>' . $name . '</td>
+                    <td>' . $level . '</td>
+                    <td>' . $row['status'] . '</td>
+                </tr>';
+                      
+
+        }
+
+    } else {
+        //appendi alla tabella un messaggio di nessun tutor rifiutato o in attesa, con colspan = 3
+        echo '<tr>
+                <td colspan="3">Nessuna richiesta pendente</td>
+            </tr>';
+    }
+
+    //creo un altro div, sempre dentro lower_student, dove metto un testo per un esercizio casuale tra quelli scritti dai tutor
+    echo '</table>
+        </div>
+        <div class="random">
+            <h1>Prova un esercizio casuale</h1>
+            <p>Prova un esercizio casuale tra quelli scritti dai tutor</p>
+            <button>Prova</button>
+        </div>
+    </div>';
+
+    
+
+
 }
 
 ?>
@@ -308,9 +462,8 @@ if ($role == 'student') {
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
-    <script type="text/javascript" src="../js/dashboard.js"></script>
 </head>
 
-<body onload='setup()>
+<body>
 
 
