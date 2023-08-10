@@ -66,8 +66,21 @@ if ($role == 'tutor') {
             </div>
             <div class="level">
                 <h1>Livello: ' . $level . '</h1>
-            </div>
+            </div>';
+    
+    //aggiungo bottone per accedere alla pagina di aggiunta di un nuovo esercizio tramite immagine
+    echo '<div class="addExercise">
+            <a href="./add_exercise.php">
+                <img src="../css/assets//add-exercise.png" alt="Aggiungi esercizio" width="50px" height="50px">
+            </a>
+        </div>
+        <div class="manageExercise">
+            <a href="./manage_exercise.php">
+                <img src="../css/assets//manage-exercise.png" alt="Gestisci esercizi" width="50px" height="50px">
+            </a>
+        </div>
         </div>';
+
 
     //faccio il div lower con le richieste di insegnamento e gli insegnamenti attivi
     echo '<div class="lower">
@@ -285,7 +298,7 @@ if ($role == 'student') {
     //le immagini si trovano in /css/assets
 
     echo '<div class="buttons">
-            <a href="./request.php"><img src="../css/assets/add-user.png" alt="Richiedi tutor" title="Richiedi tutor" width="50" height="50"></a>
+            <a href="./request_tutor.php"><img src="../css/assets/add-user.png" alt="Richiedi tutor" title="Richiedi tutor" width="50" height="50"></a>
             <a href="./search.php"><img src="../css/assets/search.png" alt="Cerca esercizio" title="Cerca esercizio" width="50" height="50"></a>
         </div>
         </div>';
