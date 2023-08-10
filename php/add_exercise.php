@@ -42,11 +42,23 @@ if (isset($_POST['submit'])) {
 
     //se la query è andata a buon fine, reindirizzo alla pagina di gestione degli esercizi
     if ($result) {
-        header('Location: ./manage_exercises.php');
+        header('Location: ./manage_exercise.php');
     } else {
-        echo 'Errore'.mysqli_error($con);
+        header('Location: ./add_exercise.php?generic_error');
     }
 }
+
+//se si è verificato un errore generico
+if (isset($_GET['generic_error'])) {
+    echo "<script>alert('Si è verificato un errore generico. Riprova.')</script>";
+}
+
+//se si è loggati come studente
+if (isset($_SESSION['student_id'])) {
+    header('Location: ./dashboard.php');
+}
+
+
 
 
 

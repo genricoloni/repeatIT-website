@@ -1,0 +1,51 @@
+body {
+    display: flex;
+    background-image: url("./assets/wall_darker.svg");
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    display: flex;
+
+
+    width: 100%;
+
+    background-color: rgb(144, 50, 173);
+    color: white;
+
+    box-shadow: black 0px 0px 10px 0px;
+
+    margin-top: 10px;
+
+    border-radius: 15px;
+}
+
+.exercise_preview {
+    border: 1px solid black;
+    border-radius: 15px;
+
+    margin: 20px;
+
+
+}
+
+
+.prev {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+}
+
+.prev > div {
+    margin: 20px;
+}
+
+.exercise_text {
+
+    margin: 20px;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    
+}
