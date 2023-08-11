@@ -49,7 +49,6 @@ if (isset($_POST['submit'])) {
         } else {
             //stampo l'errore
             echo mysqli_error($con);
-            
         }
         //inserisco un nuovo record in suggestion
 
@@ -61,6 +60,7 @@ if (isset($_POST['submit'])) {
         if ($result) {
             //stampo un messaggio di successo
             echo "<script>alert('Esercizio suggerito con successo.')</script>";
+            header('Location: ./dashboard.php?status=suggested');
         } else {
             //stampo l'errore
             echo mysqli_error($con);

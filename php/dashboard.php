@@ -27,6 +27,14 @@ if (isset($_GET['status']) && $_GET['status'] == 'not_creator') {
         </script>";
 }
 
+//se c'è lo status suggestion_added, faccio alert
+if (isset($_GET['status']) && $_GET['status'] == 'suggested') {
+    echo "<script>
+            alert('Suggerimento aggiunto con successo.');
+            window.location.href = './dashboard.php';
+        </script>";
+}
+
 //se l'utente non è loggato, reindirizzo alla pagina di login
 if (!isset($_SESSION['username'])) {
     header('Location: ../index.php');
@@ -35,6 +43,8 @@ if (!isset($_SESSION['username'])) {
 //inserisco username e role nei parametri di sessione
 $_SESSION['username'] = $username;
 $_SESSION['role'] = $role;
+
+
 
 
 
