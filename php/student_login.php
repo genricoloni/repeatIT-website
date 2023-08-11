@@ -36,7 +36,8 @@ if(isset($_POST['submit'])){
     } else {
         //se la password è corretta, salvo l'username nella sessione e reindirizzo alla pagina principale
         $_SESSION['username'] = $username;
-        header('Location: ./dashboard.php?role=student');
+        $_SESSION['role'] = 'student';
+        header('Location: ./dashboard.php');
     }
 }
 

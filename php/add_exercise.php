@@ -8,6 +8,11 @@ session_start();
 
 //recupero le info di sessione
 $tutor_username = $_SESSION['username'];
+$role = $_SESSION['role'];
+
+//reinserisco le info di sessione
+$_SESSION['username'] = $tutor_username;
+$_SESSION['role'] = $role;
 
 //recupero l'id del tutor
 $query = "SELECT * FROM tutor WHERE username = '$tutor_username'";
@@ -42,9 +47,12 @@ if (isset($_POST['submit'])) {
 
     //se la query è andata a buon fine, reindirizzo alla pagina di gestione degli esercizi
     if ($result) {
+        //stampo un messaggio di successo
+        echo "<script>alert('Esercizio aggiunto con successo.')</script>";
         header('Location: ./manage_exercise.php');
     } else {
-        header('Location: ./add_exercise.php?generic_error');
+        //stampo l'errore
+        echo mysqli_error($con);
     }
 }
 

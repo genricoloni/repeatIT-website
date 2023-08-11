@@ -49,3 +49,19 @@ body {
     font-family: 'Roboto', sans-serif;
     
 }
+
+.left {
+    width: 50%;
+}
+
+.right {
+    width: 50%;
+}
+
+.solution {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}

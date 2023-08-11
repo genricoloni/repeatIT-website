@@ -7,6 +7,18 @@ include('db_info.php');
 //recupero le informazioni di sessione
 session_start();
 $username = $_SESSION['username'];
+$role = $_SESSION['role'];
+
+if ($role != 'tutor') {
+    header('Location: ./index.php');
+}
+
+//reinserisco le informazioni di sessione
+$_SESSION['username'] = $username;
+$_SESSION['role'] = $role;
+
+//la pagina può essere acceduta solo se si è loggati come tutor
+
 
 //recupero id del tutor
 $query = "SELECT * FROM tutor WHERE username = '$username'";
@@ -76,18 +88,22 @@ if ($result) {
                 echo "<div class='button'>";
                 echo "<button class='btn' id='show_solution$exercise_id' onclick='showSolution($exercise_id)'>Gestisci soluzioni</button>";
                 echo "</div>";
+                echo "</div>";
+                echo "</div>";
+
+
+
 
 
             
             }
+
         
             ?>
 
-        </div>
-
-        </div>
     </div>
         <div class="right">
-            <h1>Gestione soluzione</h1>
+            <h1>Gestione soluzioni</h1>
+            <p>Seleziona un esercizio per gestire le soluzioni</p>
 
 </div>

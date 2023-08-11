@@ -1,0 +1,62 @@
+/*la pagina si compone di un body che contiene un form per aggiungere una soluzione*/
+/*     height: 10%; */
+
+body {
+    background-image: url("./assets/wall_darker.svg");
+    font-family: 'Roboto', sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /*allontano il form dal bordo e lo allineo a sinistra*/
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+
+    height: auto;
+
+
+    border-radius: 15px;
+
+}
+
+#form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /*allontano il form dal bordo e lo allineo a sinistra*/
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+
+    background-color: rgb(144, 50, 173);
+    color: white;
+
+    box-shadow: black 0px 0px 10px 0px;
+
+    border-radius: 15px;
+
+    /*allontanto dai bordi inferiori e superiori*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+body > h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+
+    /*allinea il titolo al centro*/
+    text-align: center;
+
+}

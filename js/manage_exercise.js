@@ -12,30 +12,42 @@ function show_exercise(event){
     //recupero l'id dell'esercizio che ha scatenato l'evento
     var id = event.currentTarget.id;
 
-    console.log(id);
     //recupero l'id dell'esercizio
     id = id.replace("prev_", "");
 
-    console.log(id);
 
     let text = document.getElementById("exercise_text_" + id);
-    console.log(text);
 
     if(text.style.display == "none"){
         text.style.display = "block";
         //imposto larghezza massima di exercise_preview a 55%
-        document.getElementById(id).style.maxWidth = "55%";
     }else{
         text.style.display = "none";
         //rimuovo larghezza massima di exercise_preview
-        document.getElementById(id).style.maxWidth = "none";
         
     }
 }
 
 
 function showSolution(id){
-    console.log(id);
+
+    //se ci sono delle soluzioni già presenti nel div right le rimuovo
+    var right = document.querySelector(".right");
+    var solutions = document.getElementsByClassName("solution");
+    if(solutions.length > 0){
+        for(var i = 0; i < solutions.length; i++){
+            right.removeChild(solutions[i]);
+        }
+    }
+
+    //rimuovo il pulsante 'aggiungi soluzione' se è presente
+    var add_solution = document.querySelector(".add_solution");
+    if(add_solution != null){
+        right.removeChild(add_solution);
+    }
+
+    
+
 
     //tramite chiamata ajax recupero la soluzione dell'esercizio
     fetch("get_solutions.php?id=" + id).then(onResponse).then(onSolutionJson);
@@ -52,11 +64,126 @@ function onResponse(response){
 }
 
 function onSolutionJson(json){
-    console.log(json[0]['text']);
+
+    //cancello tutto il contenuto del div right
+    var right = document.querySelector(".right");
+    right.innerHTML = "";
+
+    //e poi ci rimetto <h1>Gestione soluzione</h1>
+    var title = document.createElement("h1");
+    title.textContent = "Gestione soluzioni";
+    right.appendChild(title);
 
 
 
-    //scrivo il contenuto del json nel div right
-    document.querySelector(".right").innerHTML += json[0]['text'];
+    //se c'è solo un elemento e nel campo text c'è scritto 'no solution' allora non ci sono soluzioni
+    if(json.length == 1 && json[0]['text'] == "no solution"){
+        //inserisco un pulsante 'aggiungi soluzione' in cima al div right
+        var add_solution = document.createElement("button");
+        add_solution.textContent = "Aggiungi soluzione";
+        add_solution.classList.add("add_solution");
+        add_solution.addEventListener("click", addSolution);
+        var right = document.querySelector(".right");
+
+        //imposto id del pulsante come add_id
+        var id = json[0]['exercise'];
+        add_solution.id = "add_" + id;
+    
+    
+
+        var no_solution = document.createElement("p");
+        no_solution.textContent = "Non ci sono soluzioni per questo esercizio";
+        no_solution.classList.add("no_solution");
+        right.appendChild(no_solution);
+
+        right.appendChild(add_solution);
+
+
+        return;
+        
+        
+    }
+
+    //inserisco un pulsante 'aggiungi soluzione' in cima al div right
+    var add_solution = document.createElement("button");
+    add_solution.textContent = "Aggiungi soluzione";
+    add_solution.classList.add("add_solution");
+    add_solution.addEventListener("click", addSolution);
+    var right = document.querySelector(".right");
+
+    //imposto id del pulsante come add_id
+    var id = json[0]['exercise'];
+    add_solution.id = "add_" + id;
+
+
+    right.appendChild(add_solution);
+
+
+
+
+
+    //creo un div per ogni soluzione
+    for(var i = 0; i < json.length; i++){
+        //il div ha un titolo, che è il linguaggio della soluzione
+        var title = document.createElement("h3");
+        title.textContent = json[i]['language'];
+        title.classList.add("solution_title");
+
+        //accanto al titolo aggiungo un pulsante per modificare la soluzione
+        var modify = document.createElement("button");
+        modify.textContent = "Modifica";
+        modify.classList.add("modify_solution");
+        modify.addEventListener("click", modifySolution);
+        modify.id = "modify_" + json[i]['solution_id'];
+        title.appendChild(modify);
+
+
+
+        //e un testo, che è la soluzione
+        var text = document.createElement("p");
+        text.textContent = json[i]['text'];
+        text.classList.add("solution_text");
+
+        //aggiungo una linea di separazione
+        var line = document.createElement("hr");
+        line.classList.add("line");
+
+        //e la appendo al testo
+        text.appendChild(line);
+        
+        //creo un div che contiene il titolo e il testo
+        var solution = document.createElement("div");
+        solution.classList.add("solution");
+        solution.appendChild(title);
+        solution.appendChild(text);
+
+        //aggiungo il div al div right
+        var right = document.querySelector(".right");
+        right.appendChild(solution);
+
+
+    }
 
 }
+
+//funzione che aggiunge una soluzione prendendo l'id dell'esercizio
+function addSolution(event){
+    id = event.currentTarget.id.replace("add_", "");
+
+    console.log(id);
+
+    //reindirizzo l'utente alla pagina di aggiunta soluzione
+    window.open("add_solution.php?id=" + id, "_self", "");
+
+}
+
+function modifySolution(event){
+    id = event.currentTarget.id.replace("modify_", "");
+
+    console.log(id);
+
+
+
+    }
+
+  

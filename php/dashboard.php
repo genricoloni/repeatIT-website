@@ -6,19 +6,37 @@ include('./db_info.php');
 //inizio la sessione
 session_start();
 
+//assegno a delle variabili il contenuto della sessione
+$username = $_SESSION['username'];
+$role = $_SESSION['role'];
+
+//se c'è lo status invalid_id, faccio alert 
+if (isset($_GET['status']) && $_GET['status'] == 'invalid_id') {
+    echo "<script>;
+            alert('L\'id dell\'esercizio non è valido.');
+            window.location.href = './dashboard.php';
+        </script>";
+}
+
+
+//se c'è lo status not_creator, faccio alert e reindirizzo alla pagina di login
+if (isset($_GET['status']) && $_GET['status'] == 'not_creator') {
+    echo "<script>
+            alert('Non sei il creatore di questo esercizio.');
+            window.location.href = './dashboard.php';
+        </script>";
+}
+
 //se l'utente non è loggato, reindirizzo alla pagina di login
 if (!isset($_SESSION['username'])) {
     header('Location: ../index.php');
 }
 
-//se non viene passato il parametro role, reindirizzo alla pagina di login
-if (!isset($_GET['role'])) {
-    header('Location: ../index.php');
-}
+//inserisco username e role nei parametri di sessione
+$_SESSION['username'] = $username;
+$_SESSION['role'] = $role;
 
-//assegno a delle variabili il contenuto della sessione
-$username = $_SESSION['username'];
-$role = $_GET['role'];
+
 
 //se l'utente è un tutor, mostro la pagina di dashboard per i tutor
 if ($role == 'tutor') {
@@ -237,6 +255,28 @@ if ($role == 'tutor') {
                 <td colspan="2">Nessun insegnamento attivo</td>
             </tr>';
     }
+
+    echo '</table>
+    </div>';
+
+
+    //div per consigliare un esercizio
+    echo'
+        </div>
+        <div class="consiglia">
+            <h1>Consiglia un esercizio</h1>
+            <div class="consigliaTable">
+                <form action="./consiglia.php" method="GET">
+                    <input type="submit" name="consiglia" value="Consiglia">
+                </form>
+        </div>
+    </div>
+    </div>';
+
+    //se il div è stato cliccato, apro la pagina per consigliare un esercizio
+    if (isset($_GET['consiglia'])) {
+        header('Location: ./suggest.php');
+    }
      
 } 
 
@@ -387,7 +427,7 @@ if ($role == 'student') {
     echo '</table>
         </div>
         <div class="refused">
-            <h1>Tutor rifiutati</h1>';
+            <h1>Tutor pendenti</h1>';
         
         
     //creo la tabella
@@ -475,6 +515,7 @@ if ($role == 'student') {
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+
 </head>
 
 <body>
