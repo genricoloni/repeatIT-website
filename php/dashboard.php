@@ -259,24 +259,156 @@ if ($role == 'tutor') {
     echo '</table>
     </div>';
 
+    echo '</div>';
 
-    //div per consigliare un esercizio
-    echo'
-        </div>
-        <div class="consiglia">
+
+
+    //div per consigliare un esercizio che fa sempre parte di lower
+    echo '<div class="suggest">
             <h1>Consiglia un esercizio</h1>
-            <div class="consigliaTable">
-                <form action="./consiglia.php" method="GET">
-                    <input type="submit" name="consiglia" value="Consiglia">
-                </form>
-        </div>
-    </div>
-    </div>';
+            <div class="suggestForm">';
+                
+    //recupero tutti gli esercizi scritti dal tutor loggato
+    $query = "SELECT * FROM Exercise WHERE creator_id = '$id_tutor'";
+    $result = mysqli_query($con, $query);
 
-    //se il div è stato cliccato, apro la pagina per consigliare un esercizio
-    if (isset($_GET['consiglia'])) {
-        header('Location: ./suggest.php');
+
+    //per debug impongo che il risultato sia vuoto
+
+    //se non ci sono esercizi scritti dal tutor
+    if ($result == 0){
+        //mostro un semplice messaggio
+        echo '<p>Non hai ancora scritto nessun esercizio</p>';
+        echo '</div>
+        </div>';
+    } else {
+        //recupero tutti gli studenti che hanno una relazione con il tutor
+        $query = "SELECT * FROM studente WHERE student_id IN (SELECT student_id FROM Insegnamento WHERE tutor_id = '$id_tutor')";
+        $result2 = mysqli_query($con, $query);
+
+        //se non ci sono studenti che hanno una relazione con il tutor
+        if (mysqli_num_rows($result2) == 0){
+            //mostro un semplice messaggio
+            echo '<p>Non hai ancora nessuno studente a cui consigliare un esercizio</p>';
+            echo '</div>
+            </div>';
+        } else {
+            //memorizzo gli studenti in un array
+
+        //costruisco un array del tipo "Nome - Livello"
+        $students = array();
+
+        //costruisco un array solo con gli id degli studenti, che riempio con lo stesso ordine degli studenti
+        $students_id = array();
+        while ($row = mysqli_fetch_array($result2)) {
+            $name = $row['nomeCompleto'];
+            $level = $row['livello'];
+
+            //recupero l'id dello studente
+            $id = $row['student_id'];
+
+            switch ($level) {
+                case 0:
+                    $level = 'Medie';
+                    break;
+                case 1:
+                    $level = 'Superiori';
+                    break;
+                case 2:
+                    $level = 'Università';
+                    break;
+                case 3:
+                    $level = 'Professionale';
+                    break;
+                default:
+                    $level = 'Medie';
+                    break;
+            }
+
+            $student = $name . ' - ' . $level;
+            array_push($students, $student);
+
+            //aggiungo l'id dello studente all'array
+            array_push($students_id, $id);
+
+        }
+        //memorizzo gli esercizi in un array 
+        //l'array è del tipo "Titolo - Argomento - Difficoltà"
+        $exercises = array();
+
+        //creo un alto array con gli id degli esercizi
+        $exercises_id = array();
+        while ($row = mysqli_fetch_array($result)) {
+            $title = $row['title'];
+            $topic = $row['category'];
+            $difficulty = $row['difficulty'];
+
+            //recupero l'id dell'esercizio
+            $id = $row['exercise_id'];
+
+            switch ($difficulty) {
+                case 1 || 2:
+                    $difficulty = 'Facile';
+                    break;
+                case 3 || 4:
+                    $difficulty = 'Medio';
+                    break;
+                case 5:
+                    $difficulty = 'Difficile';
+                    break;
+            }
+
+            //recupero il nome dell'argomento tramite query
+            $query = "SELECT * FROM Category WHERE category_id = '$topic'";
+            $result2 = mysqli_query($con, $query);
+            $row2 = mysqli_fetch_array($result2);
+            $topic = $row2['name'];
+
+            
+            $exercise = $title . ' - ' . $topic . ' - ' . $difficulty;
+            array_push($exercises, $exercise);
+
+            //aggiungo l'id dell'esercizio all'array
+            array_push($exercises_id, $id);
+        }
+
+        //creo il form per consigliare un esercizio
+        //il form passa i dati tramite POST a suggest.php
+        echo '<form action="suggest.php" method="POST">
+            <label for="student">Studente</label>
+            <select name="student" id="student">';
+
+        //per ogni studente, creo una option
+        foreach ($students as $student) {
+            //nel campo value metto l'id dello studente, nel testo metto il nome e il livello
+            echo '<option value="' . $students_id[array_search($student, $students)] . '">' . $student . '</option>';
+
+        }
+
+        echo '</select>
+            <label for="exercise">Esercizio</label>
+            <select name="exercise" id="exercise">';
+
+        //per ogni esercizio, creo una option
+        foreach ($exercises as $exercise) {
+            //nel campo value metto l'id dell'esercizio, nel testo metto il titolo, l'argomento e la difficoltà
+            echo '<option value="' . $exercises_id[array_search($exercise, $exercises)] . '">' . $exercise . '</option>';
+            
+        }
+
+        echo '</select>
+            <input type="submit" name="submit" value="Consiglia">
+
+        </form>';
+
+        
+        
     }
+
+
+    }
+
+
      
 } 
 
@@ -515,6 +647,8 @@ if ($role == 'student') {
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+    <script>
+        //script per gestire l'ajax del form
 
 </head>
 
