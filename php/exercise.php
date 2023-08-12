@@ -14,8 +14,6 @@ if (!isset($_SESSION['username'])) {
 //mostro tutte le informazioni dell'esercizio
 if (isset($_GET['exercise_id'])) {
     $id = $_GET['exercise_id'];
-} else {
-    header('Location: ./dashboard.php');
 }
 
 //recupero i dati dell'esercizio

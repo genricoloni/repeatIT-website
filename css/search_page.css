@@ -1,0 +1,121 @@
+/* Stile generale della pagina */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f0ff; /* Colore di sfondo viola pastello */
+    margin: 0;
+    padding: 0;
+    background-image: url("./assets/wall_darker.svg");
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px; /* Border radius per il container principale */
+  }
+  
+  /* Stile della barra di navigazione */
+  .navbar {
+    background-color: #8c7ae6; /* Colore viola chiaro per la barra di navigazione */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*allontano la barra di navigazione dai bordi*/
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px; /* Border radius per la barra di navigazione */
+  }
+  
+  .form-group {
+    margin: 0 10px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: white;
+    margin-right: 5px;
+  }
+  
+  .form-group select,
+  .form-group input[type="number"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+  }
+  
+  .form-group button {
+    background-color: #5d4cc3; /* Colore blu per il bottone */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Stile degli esercizi */
+  .exercises {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .exercise_preview {
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    width: calc(33.33% - 20px);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .prev {
+    text-align: center;
+  }
+  
+  .title h1 {
+    color: #8c7ae6; /* Colore viola chiaro per il titolo */
+  }
+  
+  .category h2,
+  .difficulty h2,
+  .creator h2 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .exercise_text {
+    margin-top: 10px;
+    display: none;
+  }
+  
+  .button {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .button button {
+    background-color: #5d4cc3; /* Colore blu per il bottone */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Stile dei link */
+  a {
+    color: #5d4cc3; /* Colore blu per i link */
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
