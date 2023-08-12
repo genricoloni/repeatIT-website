@@ -1,4 +1,124 @@
+/* Stili di base per il corpo della pagina */
 body {
-    display: flex;
     background-image: url("./assets/wall_darker.svg");
-}
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    filter: brightness(0.8);
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Stili per il contenitore dei tutor */
+  .tutor_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Stili per ogni blocco tutor */
+  .tutor {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    background-color: rgb(50, 107, 173);
+    color: white;
+    width: 70%;
+  }
+  
+  /* Stili per le informazioni del tutor */
+  .tutor_info {
+    margin-bottom: 10px;
+  }
+  
+  /* Stili per i dettagli del tutor */
+  .tutor_name, .tutor_username, .tutor_level {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  /* Stili per i pulsanti */
+  .show_exercises, .send_request {
+    background-color: rgb(223, 114, 25);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  /* Effetto hover sui pulsanti */
+  .show_exercises:hover, .send_request:hover {
+    background-color: rgb(191, 96, 21);
+  }
+  
+  /* Stili per il blocco degli esercizi */
+  .exercises_ {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  /* Stili per ogni singolo esercizio */
+  .exercise {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Stili per il titolo dell'esercizio */
+  .exercise_title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  /* Stili per il testo dell'esercizio */
+  .exercise p {
+    font-size: 16px;
+  }
+  
+  /*se il bottone send_request è stato cliccato, lo metto di un colore più scuro*/
+  .send_request:active {
+    background-color: rgb(191, 96, 21);
+  }
+
+  .no_tutor {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+
+    /*centro il testo e coloro il background di arancione*/
+    text-align: center;
+    background-color: rgb(223, 114, 25);
+    color: white;
+  }
+
+  /*pulsante per tornare indietro*/
+  .back {
+    background-color: rgb(223, 114, 25, 0.8);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    /*il bottone è centrato*/
+    margin-left: auto;
+    margin-right: auto;
+    display: block;   
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
