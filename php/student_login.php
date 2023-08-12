@@ -55,6 +55,13 @@ if (isset($_GET['error'])) {
     }
 }
 
+//se arrivo con il parametro success nell'url, mostro un messaggio di successo
+if (isset($_GET['success'])) {
+    echo '<script>';
+    echo 'alert("Registrazione avvenuta con successo!")';
+    echo '</script>';
+}
+
 
 ?>
 

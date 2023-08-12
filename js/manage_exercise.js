@@ -20,10 +20,16 @@ function show_exercise(event){
 
     if(text.style.display == "none"){
         text.style.display = "block";
-        //imposto larghezza massima di exercise_preview a 55%
-    }else{
+
+        //rendo invisibili gli eventuali altri testi
+        var texts = document.getElementsByClassName("exercise_text");
+        for(var i = 0; i < texts.length; i++){
+            if(texts[i].id != text.id){
+                texts[i].style.display = "none";
+            }
+        }
+    } else {
         text.style.display = "none";
-        //rimuovo larghezza massima di exercise_preview
         
     }
 }
@@ -69,15 +75,16 @@ function onSolutionJson(json){
     var right = document.querySelector(".right");
     right.innerHTML = "";
 
-    //e poi ci rimetto <h1>Gestione soluzione</h1>
-    var title = document.createElement("h1");
-    title.textContent = "Gestione soluzioni";
-    right.appendChild(title);
+
 
 
 
     //se c'è solo un elemento e nel campo text c'è scritto 'no solution' allora non ci sono soluzioni
     if(json.length == 1 && json[0]['text'] == "no solution"){
+        //e poi ci rimetto <h1>Gestione soluzione</h1>
+        var title = document.createElement("h1");
+        title.textContent = "Gestione soluzioni";
+        right.appendChild(title);
         //inserisco un pulsante 'aggiungi soluzione' in cima al div right
         var add_solution = document.createElement("button");
         add_solution.textContent = "Aggiungi soluzione";
@@ -103,6 +110,20 @@ function onSolutionJson(json){
         
         
     }
+
+    //e poi ci rimetto <h1>Gestione soluzione</h1>
+    var title = document.createElement("h1");
+    console.log(json[0]);
+    title.textContent = "Gestione soluzioni: ";
+    //inserisco il titolo dell'esercizio dall'altro div
+    for (i of document.getElementsByClassName("exercise_preview")){
+        if(i.id == json[0]['exercise']){
+            //prendo il figlio del figlio del div
+            title.textContent += i.children[0].children[0].textContent;
+            
+        } }
+
+    right.appendChild(title);
 
     //inserisco un pulsante 'aggiungi soluzione' in cima al div right
     var add_solution = document.createElement("button");

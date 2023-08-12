@@ -11,19 +11,17 @@ session_start();
 $tutor_username = $_SESSION['username'];
 $role = $_SESSION['role'];
 
-//i dati vengono passati tramite post di una submit del form
-//recupero i dati dal form
-if (isset($_POST['submit'])) {
+//stampo tutti i parametri ricevuti
+//print_r($_POST
+
+//i dati vengono passati tramite parametri nell'url
+//se non vengono passati parametri, reindirizzo alla pagina principale
+if (isset($_GET['student']) && isset($_GET['exercise'])) {
 
 
     //i parametri passati sono id dello studente e id dell'esercizio
-    $id_student = $_POST['student'];
-    $id_exercise = $_POST['exercise'];
-
-    echo $id_student . "<br>";
-    echo $id_exercise . "<br>";
-
-
+    $id_student = $_GET['student'];
+    $id_exercise = $_GET['exercise'];
 
     //recupero id del tutor
     $query = "SELECT * FROM tutor WHERE username = '$tutor_username'";
@@ -34,7 +32,6 @@ if (isset($_POST['submit'])) {
         //recupero l'id del tutor
         $row = mysqli_fetch_array($result);
         $id_tutor = $row['tutor_id'];
-        echo $id_tutor . "<br>";
 
         //recupero l'id dell'insegnamento
         $query = "SELECT teach_id FROM Insegnamento WHERE tutor_id = '$id_tutor' AND student_id = '$id_student'";
@@ -45,10 +42,11 @@ if (isset($_POST['submit'])) {
             //recupero l'id dell'insegnamento
             $row = mysqli_fetch_array($result);
             $id_teach = $row['teach_id'];
-            echo $id_teach . "<br>";
         } else {
-            //stampo l'errore
-            echo mysqli_error($con);
+            //faccio json di errore e termino lo script
+            $json = json_encode(array('status' => 'error on teach id'));
+            echo $json;
+            die();
         }
         //inserisco un nuovo record in suggestion
 
@@ -58,22 +56,29 @@ if (isset($_POST['submit'])) {
 
         //se la query è andata a buon fine
         if ($result) {
-            //stampo un messaggio di successo
-            echo "<script>alert('Esercizio suggerito con successo.')</script>";
-            header('Location: ./dashboard.php?status=suggested');
+            //faccio json di conferma
+            //inserendo anche id del tutor
+            $json = json_encode(array('status' => 'success'));
         } else {
-            //stampo l'errore
-            echo mysqli_error($con);
+            //faccio json di errore
+            $json = json_encode(array('status' => 'error'));
         }
     } else {
-        //stampo l'errore
-        echo mysqli_error($con);
+        //faccio json di errore
+        $json = json_encode(array('status' => 'error on tutor id'));
+
                
 
     }
+
+    //stampo il json
+    echo $json;
+} else {
+    //faccio json di errore con anche i parametri passati
+    $json = json_encode(array('status' => 'error', 'student' => $_POST['student'], 'exercise' => $_POST['exercise']));
+
+    //stampo il json
+    echo $json;
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="it">

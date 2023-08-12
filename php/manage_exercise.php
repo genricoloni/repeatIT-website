@@ -42,7 +42,7 @@ if ($result) {
     <script src="../js/manage_exercise.js"></script>
 </head>
 
-<!-- dopoil caricamento della pagina, eseguo la funzione load() -->
+<!-- dopo il caricamento della pagina, eseguo la funzione load() -->
 <body onload="onload()">
 
    <!-- la pagina è divisa in due div:
@@ -89,6 +89,7 @@ if ($result) {
                 echo "<button class='btn' id='show_solution$exercise_id' onclick='showSolution($exercise_id)'>Gestisci soluzioni</button>";
                 echo "</div>";
                 echo "</div>";
+
                 echo "</div>";
 
 
@@ -101,9 +102,12 @@ if ($result) {
         
             ?>
 
-    </div>
+        </div>
         <div class="right">
             <h1>Gestione soluzioni</h1>
             <p>Seleziona un esercizio per gestire le soluzioni</p>
 
+
 </div>
+</body>
+</html>

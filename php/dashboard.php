@@ -50,12 +50,15 @@ echo '<!DOCTYPE html>
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+    <script src="../js/dashboard.js"></script>
 
 
-</head>
+</head>';
 
-<body>';
-
+echo '<body onload="setup(';
+//inserisco il ruolo dell'utente
+echo "'$role'";
+echo ')">';
 
 
 //se l'utente è un tutor, mostro la pagina di dashboard per i tutor
@@ -392,37 +395,34 @@ if ($role == 'tutor') {
             array_push($exercises_id, $id);
         }
 
-        //creo il form per consigliare un esercizio
-        //il form passa i dati tramite POST a suggest.php
-        echo '<form action="suggest.php" method="POST">
-            <label for="student">Studente</label>
-            <select name="student" id="student">';
+        //creo un insieme di div che contengono le select
+        //la prima select contiene gli studenti
+        //la seconda select contiene gli esercizi
 
-        //per ogni studente, creo una option
-        foreach ($students as $student) {
-            //nel campo value metto l'id dello studente, nel testo metto il nome e il livello
-            echo '<option value="' . $students_id[array_search($student, $students)] . '">' . $student . '</option>';
-
+        echo '<div id="studentSelect">
+                <select id="student" name="student">';
+        //per ogni studente, creo un option
+        for ($i = 0; $i < count($students); $i++) {
+            echo '<option value="' . $students_id[$i] . '">' . $students[$i] . '</option>';
         }
-
         echo '</select>
-            <label for="exercise">Esercizio</label>
-            <select name="exercise" id="exercise">';
-
-        //per ogni esercizio, creo una option
-        foreach ($exercises as $exercise) {
-            //nel campo value metto l'id dell'esercizio, nel testo metto il titolo, l'argomento e la difficoltà
-            echo '<option value="' . $exercises_id[array_search($exercise, $exercises)] . '">' . $exercise . '</option>';
-            
+        </div>
+        <div id="exerciseSelect">
+            <select id="exercise" name="exercise">';
+        //per ogni esercizio, creo un option
+        for ($i = 0; $i < count($exercises); $i++) {
+            echo '<option value="' . $exercises_id[$i] . '">' . $exercises[$i] . '</option>';
         }
-
         echo '</select>
-            <input type="submit" name="submit" value="Consiglia">
+        </div>';
 
-        </form>';
+        //aggiungo il pulsante per inviare la richiesta
+        echo '<button id="sendSuggestion">Invia suggerimento</button>';
 
-        
-        
+        //chiudo il div suggestForm
+        echo '</div>
+        </div>';
+
     }
 
 
@@ -595,11 +595,13 @@ if ($role == 'student') {
 
     $result = mysqli_query($con, $query);
 
+
     //se ci sono tutor rifiutati o in attesa, li mostro
     if (mysqli_num_rows($result) != 0) {
 
         //per ogni tutor rifiutato o in attesa, recupero i dati del tutor
         while ($row = mysqli_fetch_array($result)) {
+
             $id_tutor = $row['tutor_id'];
 
             $query = "SELECT * FROM tutor WHERE tutor_id = '$id_tutor'";
@@ -632,7 +634,7 @@ if ($role == 'student') {
             echo '<tr>
                     <td>' . $name . '</td>
                     <td>' . $level . '</td>
-                    <td>' . $row['status'] . '</td>
+                    <td>' . $row['Status'] . '</td>
                 </tr>';
                       
 
@@ -645,17 +647,87 @@ if ($role == 'student') {
             </tr>';
     }
 
-    //creo un altro div, sempre dentro lower_student, dove metto un testo per un esercizio casuale tra quelli scritti dai tutor
+    //creo un altro div, sempre dentro lower_student, dove c'è la lista di tutti gli esercizi consigliati
     echo '</table>
         </div>
-        <div class="random">
-            <h1>Prova un esercizio casuale</h1>
-            <p>Prova un esercizio casuale tra quelli scritti dai tutor</p>
-            <button>Prova</button>
-        </div>
-    </div>';
+        <div class="suggested">
+            <h1>Esercizi consigliati</h1>';
 
+    //recupero tutti gli esercizi consigliati
+    $query = "SELECT * FROM Suggestion WHERE teaching_id IN (SELECT teach_id FROM Insegnamento WHERE student_id = '$id_studente')";
+    //console.log($query);
+    echo '<script>console.log("query: ' . $query . '")</script>';
+    $result = mysqli_query($con, $query);
+
+    //creo la tabella
+    echo '<table id="eserciziConsigliati">
+            <tr>
+                <th>Titolo</th>
+                <th>Argomento</th>
+                <th>Difficoltà</th>
+                <th>Insegnante</th>
+                <th>Visualizza</th>
+            </tr>';
     
+    //se non ci sono esercizi consigliati, mostro un messaggio
+    if (mysqli_num_rows($result) == 0) {
+        echo '<tr>
+                <td colspan="3">Nessun esercizio consigliato</td>
+            </tr>';
+    } else {
+        //per ogni esercizio consigliato, recupero i dati dell'esercizio
+        while ($row = mysqli_fetch_array($result)) {
+            $id_exercise = $row['exercise_id'];
+
+            $query = "SELECT * FROM Exercise WHERE exercise_id = '$id_exercise'";
+            $result2 = mysqli_query($con, $query);
+
+            $row2 = mysqli_fetch_array($result2);
+
+            $title = $row2['title'];
+            $topic = $row2['category'];
+            $difficulty = $row2['difficulty'];
+
+            switch ($difficulty) {
+                case 1 || 2:
+                    $difficulty = 'Facile';
+                    break;
+                case 3 || 4:
+                    $difficulty = 'Medio';
+                    break;
+                case 5:
+                    $difficulty = 'Difficile';
+                    break;
+            }
+
+            //recupero il nome dell'argomento tramite query
+            $query = "SELECT * FROM Category WHERE category_id = '$topic'";
+            $result2 = mysqli_query($con, $query);
+            $row2 = mysqli_fetch_array($result2);
+            $topic = $row2['name'];
+
+            //recupero nome del tutor tramite query
+            $query = "SELECT * FROM tutor WHERE tutor_id IN (SELECT creator_id FROM Exercise WHERE exercise_id = '$id_exercise')";
+            $result2 = mysqli_query($con, $query);
+            $row2 = mysqli_fetch_array($result2);
+            $tutor = $row2['NomeCompleto'];
+
+
+
+
+
+            //aggiungo una riga alla tabella
+            echo '<tr>
+                    <td>' . $title . '</td>
+                    <td>' . $topic . '</td>
+                    <td>' . $difficulty . '</td>
+                    <td>' . $tutor . '</td>
+                    <td><a href="./exercise.php?exercise_id=' . $id_exercise . '">Vai all\'esercizio</a></td>
+                </tr>';
+                      
+
+        }
+    }
 
 
 }

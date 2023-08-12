@@ -1,0 +1,51 @@
+body {
+    background-image: url("./assets/wall_darker.svg");
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    filter: brightness(0.8);
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .left {
+    padding: 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    background-color: rgba(212, 198, 0, 0.8);
+    max-width: 80%;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .left h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333; /* Colore del testo scuro per migliorare la leggibilità */
+  }
+  
+  .left h2 {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #555; /* Colore del testo leggermente più scuro */
+  }
+  
+  .left h2:last-child {
+    margin-bottom: 20px;
+    color: #555; /* Colore del testo leggermente più scuro */
+  }
+  
+  .left p {
+    font-size: 16px;
+    margin-top: 20px;
+    line-height: 1.5;
+    color: #333; /* Colore del testo scuro per migliorare la leggibilità */
+  }
+  
+  
+  
