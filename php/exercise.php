@@ -32,6 +32,7 @@ $text = $exercise['text'];
 $difficulty = $exercise['difficulty'];
 $creator_id = $exercise['creator_id'];
 $category = $exercise['category'];
+$exercise_id = $exercise['exercise_id'];
 
 //recupero i dati del creatore dell'esercizio
 $query = "SELECT * FROM tutor WHERE tutor_id = '$creator_id'";
@@ -57,9 +58,14 @@ echo '
             <h2>Categoria: ' . $category . '</h2>
             <h2>Autore: ' . $creator_name . '</h2>
             <p>' . $text . '</p>
+            <div><button class="show_solution"id="'.$exercise_id.'">Visualizza soluzioni</button></div>
         </div>
-    </div>
-</body>
+    </div>';
+
+
+
+    //chiudo il documento html
+    echo '</body>
 </html>';
 
 

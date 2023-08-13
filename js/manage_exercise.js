@@ -150,16 +150,6 @@ function onSolutionJson(json){
         title.textContent = json[i]['language'];
         title.classList.add("solution_title");
 
-        //accanto al titolo aggiungo un pulsante per modificare la soluzione
-        var modify = document.createElement("button");
-        modify.textContent = "Modifica";
-        modify.classList.add("modify_solution");
-        modify.addEventListener("click", modifySolution);
-        modify.id = "modify_" + json[i]['solution_id'];
-        title.appendChild(modify);
-
-
-
         //e un testo, che è la soluzione
         var text = document.createElement("p");
         text.textContent = json[i]['text'];
@@ -169,14 +159,13 @@ function onSolutionJson(json){
         var line = document.createElement("hr");
         line.classList.add("line");
 
-        //e la appendo al testo
-        text.appendChild(line);
         
         //creo un div che contiene il titolo e il testo
         var solution = document.createElement("div");
         solution.classList.add("solution");
         solution.appendChild(title);
         solution.appendChild(text);
+        solution.appendChild(line);
 
         //aggiungo il div al div right
         var right = document.querySelector(".right");
@@ -198,13 +187,6 @@ function addSolution(event){
 
 }
 
-function modifySolution(event){
-    id = event.currentTarget.id.replace("modify_", "");
 
-    console.log(id);
-
-
-
-    }
 
   

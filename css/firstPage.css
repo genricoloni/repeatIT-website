@@ -2,26 +2,25 @@ body {
     display: flex;
     background-image: url("./assets/wall_darker.svg");
     font-family: 'Roboto', sans-serif;
-
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    filter: brightness(0.8);
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    
+    width: 80%;
+    margin: 20px;
 }
-
-
 
 .content {
     display: flex;
-    width: 80%;
-    height: 100%;
+    width: 100%;
     justify-content: center;
-    align-items: center;
 }
 
 .in {
@@ -29,16 +28,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    height: 100%;
+    width: 100%;
+    padding: 20px;
     border: 1px solid black;
     border-radius: 15px;
     color: white;
-    box-shadow: black 0px 0px 10px 0px;
-
-
-
-
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #8c7ae6;
 }
 
 .bottom {
@@ -46,25 +42,21 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 79.5%;
-    height: 50%;
+    width: 100%;
+    padding: 20px;
     border: 2px solid white;
-
     margin-top: 10px;
-    
-
     background-color: rgb(144, 50, 173);
     color: white;
     border-radius: 15px;
-
-    box-shadow: black 0px 0px 10px 0px;
-
-    
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 #testo {
     display: none;
-    background: rgba(0,0,0,0.1)
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .l {
@@ -76,8 +68,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    height: 100%;
+    width: 100%;
+    padding: 20px;
     border: 1px solid black;
 }
 
@@ -86,14 +78,20 @@ body {
     justify-content: center;
 }
 
+#left,
+#right {
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid white;
+    border-radius: 15px;
+}
+
 #left {
     background-color: rgb(223, 114, 25);
-    border: 2px solid white;
 }
 
 #right {
     background-color: rgb(50, 107, 173);
-    border: 2px solid white;
 }
 
 a:link, a:visited {
@@ -103,8 +101,9 @@ a:link, a:visited {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-  }
-  
-  a:hover, a:active {
+    border-radius: 5px;
+}
+
+a:hover, a:active {
     background-color: yellowgreen;
-  }
+}

@@ -38,7 +38,7 @@ echo '<a href="./dashboard.php"><button class="back">Torna alla dashboard</butto
 
 
 //recupero tutti i tutor tranne quelli per cui è già stata fatta una richiesta e che abbiano livello maggiore o uguale a quello dello studente
-$query = "SELECT * FROM tutor WHERE tutor_id NOT IN (SELECT tutor_id FROM RichiestaInsegnamento WHERE student_id = (SELECT student_id FROM studente WHERE username = '$student_username')) AND level >= (SELECT livello FROM studente WHERE username = '$student_username')";
+$query = "SELECT * FROM tutor WHERE tutor_id NOT IN (SELECT tutor_id FROM RichiestaInsegnamento WHERE Status = 'Accettato' AND student_id = (SELECT student_id FROM studente WHERE username = '$student_username')) AND level >= (SELECT livello FROM studente WHERE username = '$student_username')";
 $result = mysqli_query($con, $query);
 
 //creo un div che conterrà tutti i tutor
