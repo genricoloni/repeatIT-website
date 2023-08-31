@@ -102,7 +102,6 @@ if ($result) {
         
             ?>
 
-        </div>
         <div class="right">
             <h1>Gestione soluzioni</h1>
             <p>Seleziona un esercizio per gestire le soluzioni</p>

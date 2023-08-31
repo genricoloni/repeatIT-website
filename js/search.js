@@ -39,7 +39,6 @@ function show(){
 
     //faccio la richiesta ajax
     let url = "../php/search_exercise.php?title=" + title + "&category=" + category + "&difficulty=" + difficulty + "&creator=" + creator;
-    console.log(url);
 
     fetch(url).then(onResponse).then(onJson);
     
@@ -49,20 +48,22 @@ function show(){
 function onResponse(response){
     //verifico che la risposta sia ok
     if(!response.ok){
-        console.log("Errore nella risposta del fetch");
         return null;
     }
 
     return response.json();
 }
 function onJson(json){
-    console.log(json);
+
+    if (document.getElementById('alert'))
+    document.getElementById('alert').remove();
 
     //verifico prima di tutto che ci siano degli esercizi
     if(json.length == 0){
         let div = document.querySelector(".exercises");
         let p = document.createElement("p");
         p.textContent = "Non ci sono esercizi che rispettano i criteri di ricerca";
+        p.id = 'alert';
         div.appendChild(p);
         return;
     }
@@ -169,7 +170,6 @@ function reset(){
 
     //faccio una richiesta ajax per ottenere tutti gli esercizi
     let url = "../php/search_exercise.php?title=any&category=any&difficulty=any&creator=any";
-    console.log(url);
 
     //uso la stessa funzione onJson
     fetch(url).then(onResponse).then(onJson);
@@ -184,7 +184,6 @@ function showExercise(event){
     let id = event.target.id;
 
     id = id.replace("show_exercise", "");
-    console.log(id);
 
     //apro la pagina dell'esercizio
     window.location.href = "../php/exercise.php?exercise_id=" + id;

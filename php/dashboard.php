@@ -112,12 +112,12 @@ if ($role == 'tutor') {
     //aggiungo bottone per accedere alla pagina di aggiunta di un nuovo esercizio tramite immagine
     echo '<div class="addExercise">
             <a href="./add_exercise.php">
-                <img src="../css/assets//add-exercise.png" alt="Aggiungi esercizio" width="50px" height="50px">
+                <img src="../css/assets//add-exercise.png" alt="Aggiungi esercizio" width="50" height="50">
             </a>
         </div>
         <div class="manageExercise">
             <a href="./manage_exercise.php">
-                <img src="../css/assets//manage-exercise.png" alt="Gestisci esercizi" width="50px" height="50px">
+                <img src="../css/assets//manage-exercise.png" alt="Gestisci esercizi" width="50" height="50">
             </a>
         </div>
         </div>';
@@ -643,7 +643,7 @@ if ($role == 'student') {
     } else {
         //appendi alla tabella un messaggio di nessun tutor rifiutato o in attesa, con colspan = 3
         echo '<tr>
-                <td colspan="3">Nessuna richiesta pendente</td>
+                <td colspan="5">Nessuna richiesta pendente</td>
             </tr>';
     }
 
@@ -672,7 +672,7 @@ if ($role == 'student') {
     //se non ci sono esercizi consigliati, mostro un messaggio
     if (mysqli_num_rows($result) == 0) {
         echo '<tr>
-                <td colspan="3">Nessun esercizio consigliato</td>
+                <td colspan="5">Nessun esercizio consigliato</td>
             </tr>';
     } else {
         //per ogni esercizio consigliato, recupero i dati dell'esercizio

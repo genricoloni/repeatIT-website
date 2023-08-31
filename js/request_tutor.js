@@ -63,7 +63,6 @@ function showExercises(event){
 function onResponse(response){
     //verifico che la risposta sia ok
     if(!response.ok){
-        console.log("Errore nella risposta del fetch");
         return null;
     }
 
@@ -139,14 +138,11 @@ function onJson(json){
 }
 
 function sendRequest(event){
-    console.log("sendRequest");
     //recupero l'id del pulsante
     var id = event.currentTarget.id.replace("send", "");
-    console.log("l'id dell'esercizio è: " + id);
 
     //recupero l'id del tutor
     var tutor_id = document.getElementById("tutor" + id).id.replace("tutor", "");
-    console.log("l'id del tutor è: " + tutor_id);
 
 
     //invio una richiesta di aggiunta al database mettendo come parametro solo l'id del tutor
@@ -161,7 +157,6 @@ function sendRequest(event){
 
 function onJson2(json){
     //apro il json ricevuto 
-    console.log(json);
 
     //è presente il campo status
     if(json['status'] == "success"){

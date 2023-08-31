@@ -5,12 +5,10 @@ function setup(role){
         suggest_form.addEventListener("click", addExercise);
     } else {
         //è uno studente
-        console.log("studente");
         //aggiungo event a tutti i tr con classe suggestedExercise
         let suggested_exercises = document.querySelectorAll(".suggestedExercise");
         for(let suggested_exercise of suggested_exercises){
             suggested_exercise.addEventListener("click", showExercise);
-            console.log(suggested_exercise);
         }
     }
 }
@@ -36,12 +34,9 @@ function addExercise(){
     student_id = encodeURIComponent(student_id);
     exercise_id = encodeURIComponent(exercise_id);
 
-    console.log(student_id);
-    console.log(exercise_id);
 
     //faccio richiesta ajax con POST
     let url = "suggest.php?student=" + student_id + "&exercise=" + exercise_id;
-    console.log(url);
 
     fetch(url).then(onResponse).then(onSuggestionJson);
     
@@ -54,7 +49,6 @@ function onResponse(response){
 
 function onSuggestionJson(json){
 
-    console.log(json);
     //leggo il campo status
     if(json['status'] == "success"){
         //metto un messaggio di successo dentro al div suggestForm che sparisce dopo 5 secondi

@@ -83,7 +83,7 @@ if (isset($_GET['success'])) {
             <input type="password" name="password" placeholder="Enter Password" required>
             <input type="submit" name="submit" value="Login">
             <div id='lnk'>
-                <a href="student_registration.php"><br>Non hai ancora un account?</a>
+                <a href="registration.php"><br>Non hai ancora un account?</a>
             </div>
             <div id='back'>
             <a href="../index.php"><br>Torna alla pagina principale!</a>

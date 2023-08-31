@@ -113,7 +113,6 @@ function onSolutionJson(json){
 
     //e poi ci rimetto <h1>Gestione soluzione</h1>
     var title = document.createElement("h1");
-    console.log(json[0]);
     title.textContent = "Gestione soluzioni: ";
     //inserisco il titolo dell'esercizio dall'altro div
     for (i of document.getElementsByClassName("exercise_preview")){
@@ -180,7 +179,6 @@ function onSolutionJson(json){
 function addSolution(event){
     id = event.currentTarget.id.replace("add_", "");
 
-    console.log(id);
 
     //reindirizzo l'utente alla pagina di aggiunta soluzione
     window.open("add_solution.php?id=" + id, "_self", "");

@@ -47,10 +47,10 @@ echo '<form id="form" action="javascript:show()" method="post">';
 
 //metto una didascalia per ogni campo
 echo '<label for="title">Titolo</label>';
-echo '<input type="text" name="title" placeholder="Titolo">';
+echo '<input type="text" id="title" name="title" placeholder="Titolo">';
 
 echo '<label for="category">Categoria</label>';
-echo '<select name="category">';
+echo '<select id="category" name="category">';
 //aggiungo un'opzione per non filtrare per categoria, che ha value any
 echo '<option value="any">Qualsiasi</option>';
 //recupero tutte le categorie tramite una query
@@ -65,7 +65,7 @@ echo '</select>';
 
 
 echo '<label for="difficulty">Difficoltà</label>';
-echo '<select name="difficulty">';
+echo '<select id="difficulty" name="difficulty">';
 //aggiungo un'opzione per non filtrare per difficoltà, che ha value any
 echo '<option value="any">Qualsiasi</option>';
 //la difficoltà è un numero da 1 a 5, quindi creo 5 elementi option
@@ -81,7 +81,7 @@ echo '<label for="creator">Autore</label>';
 $query = "SELECT * FROM tutor";
 //metto il NomeCompleto e, tra parentesi, l'username
 $result = mysqli_query($con, $query);
-echo '<select name="creator">';
+echo '<select id="creator" name="creator">';
 //aggiungo un'opzione per non filtrare per autore, che ha value any, che è anche il valore di default
 echo '<option value="any">Qualsiasi</option>';
 //come value metto l'id del tutor, come testo metto il NomeCompleto e tra parentesi l'username
@@ -93,7 +93,7 @@ while ($row = mysqli_fetch_array($result)) {
 echo '</select>';
 
 //creo un bottone per resettare i filtri
-echo '<input id="reset" type="button" value="Reset" ">';
+echo '<input id="reset" type="button" value="Reset">';
 //creo un bottone per inviare il form
 echo '<input type="submit" value="Filtra">';
 echo '</form>';

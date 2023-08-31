@@ -33,11 +33,10 @@ if (isset($_POST['submit'])) {
     $difficulty = $_POST['difficulty'];
     $category = $_POST['category'];
 
-    //faccio console.log dei dati
-    echo "<script>console.log('$title')</script>";
-    echo "<script>console.log('$text')</script>";
-    echo "<script>console.log('$difficulty')</script>";
-    echo "<script>console.log('$category')</script>";
+    $text = str_replace("'", "\\'", $text);
+    $text = mysqli_real_escape_string($con, $text);
+
+
 
 
 

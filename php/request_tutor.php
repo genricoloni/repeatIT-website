@@ -30,9 +30,8 @@ echo '<!DOCTYPE html>
 
 echo '<body onload="setup()">';
 
-//in cima metto pulsante per tornare alla dashboard
-echo '<a href="./dashboard.php"><button class="back">Torna alla dashboard</button></a>';
-
+//in cima metto un button per tornare alla dashboard
+echo '<button class="back" onclick="window.location.href=\'./dashboard.php\'">Torna alla dashboard</button>';
 
 
 
